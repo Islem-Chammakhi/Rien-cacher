@@ -1,70 +1,137 @@
-# Getting Started with Create React App
+/*import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';  // Importation de Router, Routes et Route
+import Model from './Model';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import Card from './components/Card';
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+function App() {
+  const navigate = useNavigate();  // Déclaration de useNavigate pour la redirection
+  const [answerStatus, setAnswerStatus] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(10); // 10 secondes pour la démonstration
+  const [score, setScore] = useState(0); // Suivi du score
+  const [quizEnded, setQuizEnded] = useState(false);
 
-## Available Scripts
+  const updateAnswerStatus = (status, isCorrect) => {
+    setAnswerStatus(status);
+    if (isCorrect) {
+      setScore(score + 0.5);
+    } else {
+      setScore(score - 1);
+    }
+  };
 
-In the project directory, you can run:
+  // Décrémenter le timer chaque seconde
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (timeLeft > 0 && !quizEnded) {
+        setTimeLeft(timeLeft - 1);
+      } else if (timeLeft === 0) {
+        setQuizEnded(true);
+        alert(`Temps écoulé ! Votre score est : ${score}`);
+        clearInterval(timer);
 
-### `npm start`
+        // Redirection automatique vers la page des résultats après que le quiz est terminé
+        navigate('/result', { state: { score } });  // Utilisation de navigate pour aller à /result avec le score
+      }
+    }, 1000);
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    return () => clearInterval(timer); // Nettoyage du timer lors du démontage du composant
+  }, [timeLeft, quizEnded, score, navigate]);
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  // Lorsque le quiz est terminé, affiche le score
+  useEffect(() => {
+    if (quizEnded) {
+      alert(`Quiz terminé ! Votre score est : ${score}`);
+    }
+  }, [quizEnded, score]);
 
-### `npm test`
+  return (
+    <div className={`h-screen flex items-center justify-center 
+      ${answerStatus === 'correct' ? 'bg-green-500' : answerStatus === 'incorrect' ? 'bg-red-500' : 'bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600'}`}>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+      <div className="flex w-full max-w-screen-xl px-8">*/
+        {/* Section du quiz : centrée */}
+        /*<div className="w-2/5 h-full flex justify-center items-center p-6 bg-white rounded-lg shadow-lg">
+          <Card updateAnswerStatus={updateAnswerStatus} />
+        </div>*/
 
-### `npm run build`
+        {/* Section du modèle 3D : positionnée à droite */}
+        /*<div className="w-2/5 h-96 p-8 bg-white rounded-lg shadow-xl flex justify-center items-center ml-8">
+          <Canvas camera={{ position: [0, 0, 10], fov: 75 }} className="w-full h-full">
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[0, 0, 5]} intensity={1} />
+            <Model />
+            <OrbitControls />
+          </Canvas>
+        </div>
+      </div>*/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+      {/* Affichage du timer */}
+      /*{!quizEnded && (
+        <div className="absolute top-4 right-4 bg-black text-white px-4 py-2 rounded-full">
+          Temps restant : {Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
+        </div>
+      )}
+    </div>
+  );
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+function Result() {
+  const navigate = useNavigate();
+  const location = useNavigate();
+  const { state } = location;
+  const { score } = state || { score: 0 }; // Récupérer le score passé depuis App.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  // Fonction pour rejouer
+  const handleRejouer = () => {
+    navigate('/');  // Rediriger vers le quiz
+  };
 
-### `npm run eject`
+  // Fonction pour passer au storie
+  const handlePasserAuStorie = () => {
+    // Changez cette logique en fonction de l'endroit où vous souhaitez aller pour le storie
+    navigate('/storie');  // Exemple de redirection vers une autre page (ajoutez votre propre route si nécessaire)
+  };
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  return (
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-green-400 via-blue-500 to-purple-600">
+      <div className="p-8 bg-white rounded-lg shadow-lg text-center">
+        <h1 className="text-3xl font-semibold">Résultats</h1>
+        <p className="text-xl mt-4">Votre score est : {score}</p>
+        <div className="mt-6">
+          <button
+            className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-700"
+            onClick={handleRejouer}
+          >
+            Rejouer
+          </button>
+        </div>
+        <div className="mt-4">
+          <button
+            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700"
+            onClick={handlePasserAuStorie}
+          >
+            Passer au Storie
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+// Le composant principal avec Router, Routes et Route
+function Main() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} /> */ {/* La route principale pour le quiz */}
+        /*<Route path="/result" element={<Result />} />  {/* La route pour afficher les résultats *//*}
+        <Route path="/storie" element={<div>Storie Page</div>} />  {/* Exemple de page pour le storie *//*}
+      </Routes>
+    </Router>
+  );
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export default Main;*/
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
