@@ -1,4 +1,4 @@
-import { tr } from "framer-motion/client";
+
 
 export const quizData = [
     { id:1,

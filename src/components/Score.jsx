@@ -18,7 +18,7 @@ import React from 'react';
 
 const Score = ({ score, totalQuestions }) => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900 px-4">
+    <div className="flex justify-center items-center  bg-black px-4">
       <div className="max-w-sm w-full bg-black p-6 rounded-lg shadow-[0_0_10px_5px_rgba(191,123,255,0.7)] text-center">
         <h2 className="text-2xl font-semibold mb-4 text-white">Votre score final</h2>
         <p className="text-xl text-purple-300">

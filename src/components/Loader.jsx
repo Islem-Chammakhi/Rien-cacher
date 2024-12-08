@@ -50,10 +50,11 @@ const Loader = () => {
       animate="animationOne"
     >
       <motion.svg version="1.1" id="skull"
+                      className="w-96 h-96 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px]"
                       variants={svgVariants}
                       initial="hidden"
                       animate="visible" 
-   width="800px" height="800px" viewBox="0 0 64 64" enable-background="new 0 0 64 64">
+    viewBox="0 0 64 64" enable-background="new 0 0 64 64">
 <motion.path
 variants={pathVariants}
 fill="#FFFFFF" d="M32.267,9c-12,0-18.725,8-17.225,20c-1.401,3.003,0.225,8,3.225,10l4.998,13.5c1.002,2.5,3.547,3,6.002,3h3

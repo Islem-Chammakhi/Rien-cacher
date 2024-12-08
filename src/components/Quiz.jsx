@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import questions from './quizData';
 import Card from './Card';
 import Score from './Score';
+import { motion } from 'framer-motion';
 
 const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -9,7 +10,7 @@ const Quiz = () => {
   const [isCorrect, setIsCorrect] = useState(null);
   const [score, setScore] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(90); // 10 seconds for testing
+  const [timeLeft, setTimeLeft] = useState(85); // 10 seconds for testing
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -31,6 +32,25 @@ const Quiz = () => {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
     }
   };
+  const loaderVariants = {
+    animationOne: {
+      x: [-20, 20],
+      y: [0, -60],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "reverse",
+          duration: 1.1,
+        },
+        y: {
+          repeat: Infinity,
+          repeatType: "reverse",
+          duration: 0.55,
+          ease: 'easeOut'
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     if (timeLeft > 0 && !quizFinished) {
@@ -45,41 +65,35 @@ const Quiz = () => {
   }, [timeLeft, quizFinished]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900 px-4">
-      <div className="w-full max-w-4xl flex justify-between items-center space-x-8">
-        <div className="flex-1">
-          {quizFinished ? (
-            <Score score={score} totalQuestions={questions.length} />
-          ) : (
-            <Card
-              question={currentQuestion}
-              onAnswer={handleAnswer}
-              isAnswered={isAnswered}
-              isCorrect={isCorrect}
-              explanation={currentQuestion.explanation}
-              onNext={nextQuestion}
-              timeLeft={timeLeft}
-            />
-          )}
-        </div>
-
-        <div className="relative w-48 h-48 bg-transparent flex justify-center items-center rounded-full ml-8">
-          <div className="absolute w-full h-full bg-gray-800 rounded-full"></div>
-          <div className="absolute w-full h-full flex justify-center items-center text-6xl font-bold"
-               style={{ color: timeLeft < 60 ? 'red' : 'white', backgroundColor: 'transparent' }}>
-            <span className="animate-pulse">{timeLeft}</span>
+    
+        <div className='my-5'>
+            {!quizFinished && <motion.div
+                className="w-3 h-3 mx-auto mt-10 bg-white  rounded-full"
+                variants={loaderVariants}
+                animate="animationOne"
+            > 
+            </motion.div>}
+            <div className=" text-center text-6xl font-bold mb-8"
+                style={{ color: timeLeft < 60 ? 'red' : 'white', backgroundColor: 'transparent' }}>
+              <span className="animate-pulse">{timeLeft}</span>
           </div>
-          <div className="absolute w-full h-full flex justify-center items-center text-6xl font-bold"
-     style={{
-       color: timeLeft < 60 ? 'red' : 'white',  // Retirer cette ligne
-       backgroundColor: 'transparent',  // La couleur de fond reste transparente
-     }}>
-  <span className="animate-pulse">{timeLeft}</span>
-</div>
+            {quizFinished ? (
+              <Score score={score} totalQuestions={questions.length} />
+            ) : (
+              <Card
+                question={currentQuestion}
+                onAnswer={handleAnswer}
+                isAnswered={isAnswered}
+                isCorrect={isCorrect}
+                explanation={currentQuestion.explanation}
+                onNext={nextQuestion}
+                timeLeft={timeLeft}
+              />
+            )}
+          </div>
 
-        </div>
-      </div>
-    </div>
+
+      
   );
 };
 
