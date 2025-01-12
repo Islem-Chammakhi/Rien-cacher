@@ -32,7 +32,7 @@ L'application est déployée et disponible en ligne via Vercel. Vous pouvez y ac
 
 1. **Clonez le projet**
    ```bash
-   git clone https://github.com/IslemChammakhi/hacking-awareness-react-tailwind.git
+   git clone https://github.com/Islem-Chammakhi/Rien-cacher.git
    cd hacking-awareness-react-tailwind
    
 2. **Installez les dépendances**
